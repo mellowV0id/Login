@@ -5,12 +5,12 @@ class Database
     /**
      * @var string
      */
-    private CONST USER = "profondoRosso";
+    private CONST USER = " ";
 
     /**
      * @var string
      */
-    private const PASSWORD = "VoltarenUpMyAss@";
+    private const PASSWORD = " ";
 
     /**
      * @var string
