@@ -24,18 +24,16 @@ class Authentication
     public function login(User $user): bool
     {
         $whereUsername = 'username = "' . $user->getUsername() . '"';
-        $dispo         = $this->connection->select("users", [], $whereUsername);
+        $user          = $this->connection->select("users", [], $whereUsername);
 
-        if (!isset($dispo['username']) || !isset($dispo['password'])) {
-            echo "Wrong data!";
+        if (!isset($user['username']) || !isset($user['password'])) {
             return false;
         }
-        if ($dispo['password'] == $user->getPassword()) {
-            echo "Login successful";
+
+        if ($user['password'] == $user->getPassword()) {
             return true;
         }
-
-        echo "Wrong username or password";
+        
         return false;
     }
 }

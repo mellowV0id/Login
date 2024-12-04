@@ -6,17 +6,22 @@ include_once('Authentication/Authentication.php');
 
 header("Location: http://localhost/index.html");
 
-$connect = new Database();
+$connect      = new Database();
 $authenticate = new Authentication($connect);
 
-if (!isset($_POST['username']) || !isset($_POST['password'])) {
+$userName = $_POST['username'];
+$password = $_POST['password'];
+
+
+if (!isset($userName,$password)) {
     die();
 }
+
 if (empty($_POST['username']) || (empty($_POST['password']))) {
     die();
 }
 
-$user = new User($_POST['username'], $_POST['password']);
+$user = new User($username, $password);
 
 if ($authenticate->login($user)) {
     header("Location: http://localhost/welcome.html");
