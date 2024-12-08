@@ -9,6 +9,7 @@ session_start();
 
 $connection = new Database();
 $operations = new ATM($connection);
+$operations->updateGlobalBalance();
 $userid     = $_POST['transferMoney'];
 $amount     = $_POST['amount'];
 $operation  = $_POST['operation'];
@@ -16,10 +17,8 @@ $operation  = $_POST['operation'];
 if(empty($amount)) {
     die();
 }
-/**
- * TODO: operations need to update current_balance in session superglobal
- */
-$_SESSION['current_balance'] = $operations->getBalance();
+
+
 
 if($operation == 'withdraw') {
     $operations->withdraw($amount);

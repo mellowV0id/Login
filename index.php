@@ -20,8 +20,7 @@ if (empty($_POST['username']) || (empty($_POST['password']))) {
 
 $user     = new User($userName, $password);
 $userData = $authenticate->login($user);
-
-$id = $userData['id'] ?? 0;
+$id       = $userData['id'] ?? 0;
 
 $_SESSION['current_balance'] = $userData['balance'];
 

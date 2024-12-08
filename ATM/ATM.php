@@ -13,9 +13,16 @@ class ATM
         $this->connection = $db;
     }
 
+    public function updateGlobalBalance(): void
+    {
+        $_SESSION['current_balance'] = $this->getBalance();
+    }
+    /**
+     * @return float
+     */
     public function getBalance(): float
     {
-        $whereKey   = ['id' => $_SESSION['userid']];
+        $whereKey   = ['id'      => $_SESSION['userid']];
         $balance    = ["balance" => '*'];
         $balance    = $this->connection->select('users', $balance, $whereKey)[0];
 
@@ -38,7 +45,7 @@ class ATM
             return;
         }
 
-        $balance  -= $amount;
+        $balance   -= $amount;
         $balance   = ['balance' => $balance];
         $this->connection->update('users', $balance , "id = $id");
 

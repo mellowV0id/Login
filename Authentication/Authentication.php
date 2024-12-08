@@ -46,11 +46,11 @@ class Authentication
 
     public function getBalance(): float
     {
-        $username   = ['username' => $_POST['username']];
-        $id         = $this->connection->select('users', ['id'], $username)[0];
-        $whereKey   = ['id' => $id['id']];
-        $balance    = ["balance" => '*'];
-        $balance    = $this->connection->select('users', $balance, $whereKey)[0];
+        $username = ['username' => $_POST['username']];
+        $id       = $this->connection->select('users', ['id'], $username)[0];
+        $whereKey = ['id' => $id['id']];
+        $balance  = ["balance" => '*'];
+        $balance  = $this->connection->select('users', $balance, $whereKey)[0];
 
         return $balance['balance'];
     }
