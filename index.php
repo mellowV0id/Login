@@ -1,11 +1,8 @@
 <?php
-
+session_start();
 include_once('Database/Database.php');
 include_once('Authentication/User.php');
 include_once('Authentication/Authentication.php');
-
-
-session_start();
 
 $connect      = new Database();
 $authenticate = new Authentication($connect);
@@ -21,14 +18,18 @@ if (empty($_POST['username']) || (empty($_POST['password']))) {
     die();
 }
 
-$user = new User($userName, $password);
-$id   = $authenticate->login($user);
+$user     = new User($userName, $password);
+$userData = $authenticate->login($user);
+
+$id = $userData['id'] ?? 0;
+
+$_SESSION['current_balance'] = $userData['balance'];
 
 if ($id) {
     $_SESSION['userid'] = $id;
-    header("Location: http://localhost/Login/welcome.html");
-    die();
+    header("Location: http://localhost/Login/welcome.php");
+} else {
+    header("Location: http://localhost/Login/loginFailed.html");
 }
 
-header("Location: http://localhost/Login/loginFailed.html");
 

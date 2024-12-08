@@ -19,25 +19,39 @@ class Authentication
 
     /**
      * @param User $user
-     * @return bool
+     * @return array
      */
-    public function login(User $user): int
+    public function login(User $user): array
     {
         $whereUsername = [
             'username' => $user->getUsername(),
             'password' => $user->getPassword(),
+            'balance'  => $this->getBalance()
         ];
 
         $user = $this->connection->select("users", [], $whereUsername)[0];
 
         if (!isset($user['username']) || !isset($user['password'])) {
-            return 0;
+            return [];
         }
 
         if ($user['password'] == $whereUsername['password']) {
-            return $user['id'];
+            return $user;
         }
-        
-        return 0;
+
+        $user->setBalance($this->getBalance());
+
+        return [];
+    }
+
+    public function getBalance(): float
+    {
+        $username   = ['username' => $_POST['username']];
+        $id         = $this->connection->select('users', ['id'], $username)[0];
+        $whereKey   = ['id' => $id['id']];
+        $balance    = ["balance" => '*'];
+        $balance    = $this->connection->select('users', $balance, $whereKey)[0];
+
+        return $balance['balance'];
     }
 }

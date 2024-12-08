@@ -12,10 +12,16 @@ class User
      */
     private string $password;
 
-    public function __construct(string $username, string $password)
+    /**
+     * @var float|int
+     */
+    private float $balance;
+
+    public function __construct(string $username, string $password, float $balance = 0)
     {
         $this->username = $username;
         $this->password = $password;
+        $this->balance  = $balance;
     }
 
     /**
@@ -50,5 +56,15 @@ class User
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    public function setBalance(float $balance): void
+    {
+        $this->balance = $balance;
+    }
+
+    public function getBalance(): float
+    {
+        return $this->balance;
     }
 }
