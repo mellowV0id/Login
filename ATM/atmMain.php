@@ -18,29 +18,19 @@ if(empty($amount)) {
     die();
 }
 
-
-
 if($operation == 'withdraw') {
     $operations->withdraw($amount);
 }
 
 if($operation == 'deposit') {
     $operations->deposit($amount);
-    die();
 }
 
-if(!isset($operation) || !isset($userid)) {
-    die();
+if(!empty($userid) && $operation == 'transfer') {
+    $operations->transfer($amount, $userid);
 }
-
-if(empty($userid)) {
-    die();
-}
-
-$operations->transfer($amount, $userid);
 
 $id = $userData['id'] ?? 0;
 
-if (!isset($operations)) {
-    header("Location: http://localhost/Login/welcome.php");
-}
+header("Location: http://localhost/Login/welcome.php");
+
