@@ -41,17 +41,12 @@ class ATM
 
         if ($amount > $balance)
         {
-            echo "Can't withdraw this amount of money from your existing balance." . PHP_EOL;
-            return;
+            die("Cant withdraw this amount.");
         }
 
         $balance   -= $amount;
         $balance   = ['balance' => $balance];
         $this->connection->update('users', $balance , "id = $id");
-
-        $balanceMessage = "Your new balance is : " . $balance['balance'];
-        $depositMessage =  "You successfully withdrew :" . $amount . PHP_EOL;
-        echo $balanceMessage . PHP_EOL . $depositMessage . PHP_EOL;
     }
 
     /**
@@ -68,10 +63,6 @@ class ATM
         $balance   = ['balance' => $balance];
 
         $this->connection->update('users', $balance , "id = $id");
-
-        $balanceMessage = "Your new balance is : " . $balance['balance'];
-        $depositMessage =  "You successfully deposited :" . $amount . PHP_EOL;
-        echo $balanceMessage . PHP_EOL . $depositMessage . PHP_EOL;
     }
 
     /**

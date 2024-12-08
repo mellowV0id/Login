@@ -41,7 +41,6 @@ $operations->transfer($amount, $userid);
 
 $id = $userData['id'] ?? 0;
 
-if ($id) {
-    $_SESSION['userid'] = $id;
+if (!isset($operations)) {
     header("Location: http://localhost/Login/welcome.php");
 }
